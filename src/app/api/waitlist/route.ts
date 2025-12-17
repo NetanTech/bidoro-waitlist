@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, name, referralSource } = await request.json();
+    const { email, name, whatsappNumber, referralSource } = await request.json();
 
     // Basic validation
     if (!email || !email.includes("@")) {
@@ -29,6 +29,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Clean WhatsApp number (remove spaces, keep + and digits)
+    const cleanedWhatsappNumber = whatsappNumber 
+      ? whatsappNumber.replace(/[^\d+]/g, '').trim() 
+      : null;
+
     // Insert into Supabase
     const { data, error } = await supabaseAdmin
       .from("waitlist")
@@ -36,6 +41,7 @@ export async function POST(request: NextRequest) {
         {
           email: email.toLowerCase().trim(),
           name: name?.trim() || null,
+          whatsapp_number: cleanedWhatsappNumber,
           referral_source: referralSource || "website",
         },
       ])
@@ -109,6 +115,15 @@ const info = await transporter.sendMail({
               🌟 <strong>Congratulations!</strong> You're now part of an exclusive group that will get early access to the future of online marketplace. We're building something special, and you'll be among the first to experience it.
             </p>
           </div>
+
+          <!-- WhatsApp Notice (if provided) -->
+          ${cleanedWhatsappNumber ? `
+          <div style="background: #25D366; padding: 15px 20px; border-radius: 12px; margin: 20px 0; text-align: center;">
+            <p style="margin: 0; color: white; font-size: 14px;">
+              📱 We'll also send you updates on WhatsApp at <strong>${cleanedWhatsappNumber}</strong>
+            </p>
+          </div>
+          ` : ''}
 
           <!-- Benefits Section -->
           <div style="margin: 35px 0;">

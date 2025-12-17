@@ -14,6 +14,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
   
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -31,6 +32,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
         body: JSON.stringify({
           email,
           name,
+          whatsappNumber,
           referralSource: 'modal_popup'
         }),
       });
@@ -67,7 +69,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
           >
             {/* Modal Content */}
             <motion.div
-              className="bg-white rounded-2xl p-8 max-w-[600px] w-full mx-4 relative"
+              className="bg-white rounded-2xl p-8 max-w-[600px] w-full mx-4 relative max-h-[90vh] overflow-y-auto"
               initial={{ scale: 0.8, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -129,6 +131,36 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#1C341A] focus:border-[#1C341A] outline-none transition-colors"
                   />
+                </div>
+
+                {/* WhatsApp Number Field */}
+                <div>
+                  <label htmlFor="modal-whatsapp" className="block text-sm font-medium text-gray-700 mb-1">
+                    WhatsApp Number
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <svg 
+                        className="h-5 w-5 text-gray-400" 
+                        viewBox="0 0 24 24" 
+                        fill="currentColor"
+                      >
+                        <path d="M12.031 2.03c-5.527 0-9.999 4.472-9.999 9.999 0 1.792.496 3.454 1.354 4.908l-1.391 5.084 5.207-1.377c1.41.776 3.011 1.229 4.829 1.229h.005c5.526 0 10.001-4.471 10.001-9.999s-4.475-10.001-10.001-10.001zm0 18.232c-1.536 0-3.076-.445-4.409-1.294l-3.21.846.95-.3.155.009-.005.008-.005c-1.332-1.378-2.091-3.219-2.091-5.183 0-4.604 3.743-8.344 8.349-8.344s8.349 3.74 8.349 8.344c.001 4.605-3.743 8.349-8.349 8.349zm3.565-5.698c-.201-.1-.734-.366-.848-.407-.115-.042-.198-.057-.282.057-.084.114-.325.407-.398.49-.074.084-.148.099-.272.042-.125-.057-.527-.197-1.002-.62-.375-.333-.627-.745-.701-.86-.075-.114-.008-.175.066-.248.067-.067.149-.165.223-.248.075-.084.1-.143.149-.236.05-.093.025-.175-.012-.249-.036-.074-.329-.789-.452-1.071-.125-.282-.25-.236-.344-.236-.094 0-.201-.015-.308-.015-.107 0-.282.042-.43.21-.148.167-.566.557-.566 1.359 0 .802.58 1.574.664 1.689.083.114 1.144 1.745 2.766 2.457.408.179.725.269.967.359.349.129.67.108.924.066.273-.042.734-.3.848-.659.115-.365.115-.678.084-.734-.03-.057-.114-.084-.249-.142z"/>
+                      </svg>
+                    </div>
+                    <input
+                      type="tel"
+                      id="modal-whatsapp"
+                      name="whatsappNumber"
+                      value={whatsappNumber}
+                      onChange={(e) => setWhatsappNumber(e.target.value)}
+                      placeholder="+234 801 234 5678"
+                      className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#1C341A] focus:border-[#1C341A] outline-none transition-colors"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1 ml-4">
+                    We&apos;ll send you updates via WhatsApp
+                  </p>
                 </div>
 
                 {/* Error Message */}
