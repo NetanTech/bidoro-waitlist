@@ -759,9 +759,6 @@ const BidoroLayout: React.FC = () => {
                       className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#1C341A] focus:border-[#1C341A] outline-none transition-colors text-base"
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1 ml-4">
-                    We&apos;ll send you updates via WhatsApp
-                  </p>
                 </div>
 
                 {/* Submit Button */}
